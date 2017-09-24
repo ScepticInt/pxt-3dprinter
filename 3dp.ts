@@ -39,6 +39,17 @@ enum Print3DMode {
 }
 class Print3DConfig
 {
+    name:string;
+    Xstep:DigitalPin;
+    Xdir:DigitalPin;
+    Ystep:DigitalPin;
+    Ydir:DigitalPin;
+    Zstep:DigitalPin;
+    Zdir:DigitalPin;
+    FeedPin:DigitalPin;
+    EndStopX:DigitalPin;
+    EndStopY:DigitalPin;
+    EndStopZ:DigitalPin;
     
 }
 
