@@ -22,6 +22,10 @@ enum Print3DColors {
     White = 0xFFFFFF
 }
 
+enum Print3DDirection {
+   X,Y,Z
+}
+
 /**
  * Different modes for RGB or RGB+W Print3D strips
  */
@@ -37,11 +41,14 @@ enum Print3DMode {
 /**
  * Functions to operate Print3D strips.
  */
-//% weight=5 color=#2699BF icon="\uf110"
+//% weight=5 color=#FF8000 icon="\uf105"
 namespace Print3D {
     //% shim=sendBufferAsm
     //% parts="Print3D"
-    function sendBuffer(buf: Buffer, pin: DigitalPin) {
+    function sendBuffer(buf: Buffer, pin: DigitalPin) 
+    {
+       
+
     }
 
     /**
@@ -67,6 +74,16 @@ namespace Print3D {
             this.setAllRGB(rgb);
             this.show();
         }
+
+        /**
+         * Moves the nozzle in selected direction 
+         * @param axis axis of movement
+         */
+        //% blockId="Print3D_set_strip_color" block="%strip|show color %rgb=Print3D_colors" 
+        //% weight=85 blockGap=8
+        //% parts="Print3D"
+        moveNozzle(axis:Print3DDirection, mm:number)
+        {}
 
         /**
          * Shows a rainbow pattern on all LEDs. 
