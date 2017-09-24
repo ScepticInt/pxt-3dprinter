@@ -1,19 +1,18 @@
 {
-    "name": "neopixel",
-    "version": "0.3.8",
-    "description": "AdaFruit NeoPixel driver",
+    "name": "3D Printer",
+    "version": "0.1.0",
+    "description": "Mi ",
     "license": "MIT",
     "dependencies": {
         "core": "*"
     },
     "files": [
         "README.md",
-        "neopixel.ts",
-        "sendbuffer.asm",
-        "_locales/ja/neopixel-strings.json"
+        "3dp.ts",
+        "sendbuffer.asm"
     ],
     "testFiles": [
-        "neotest.ts"
+        "3dptest.ts"
     ],
     "yotta": {
         "config": {

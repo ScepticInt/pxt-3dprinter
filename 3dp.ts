@@ -40,7 +40,7 @@ enum NeoPixelMode {
 //% weight=5 color=#2699BF icon="\uf110"
 namespace neopixel {
     //% shim=sendBufferAsm
-    //% parts="neopixel"
+    //% parts="3D Priner"
     function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
 
