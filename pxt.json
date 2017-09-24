@@ -1,7 +1,7 @@
 {
-    "name": "3D Printer",
+    "name": "Print3D",
     "version": "0.1.0",
-    "description": "Mi ",
+    "description": "tbd",
     "license": "MIT",
     "dependencies": {
         "core": "*"
