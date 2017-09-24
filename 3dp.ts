@@ -79,7 +79,7 @@ namespace Print3D {
          * Moves the nozzle in selected direction 
          * @param axis axis of movement
          */
-        //% blockId="Print3D_set_strip_color" block="%strip|show color %rgb=Print3D_colors" 
+        //% blockId="Print3D_move_nozzle" block="%strip|Move nozzle %axis=Print3DDirection| %mm Distance" 
         //% weight=85 blockGap=8
         //% parts="Print3D"
         moveNozzle(axis:Print3DDirection, mm:number)
