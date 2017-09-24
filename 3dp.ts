@@ -1,7 +1,7 @@
 /**
- * Well known colors for a NeoPixel strip
+ * Well known colors for a _3DPrinter strip
  */
-enum NeoPixelColors {
+enum _3DPrinterColors {
     //% block=red
     Red = 0xFF0000,
     //% block=orange
@@ -23,9 +23,9 @@ enum NeoPixelColors {
 }
 
 /**
- * Different modes for RGB or RGB+W NeoPixel strips
+ * Different modes for RGB or RGB+W _3DPrinter strips
  */
-enum NeoPixelMode {
+enum _3DPrinterMode {
     //% block="RGB (GRB format)"
     RGB = 0,
     //% block="RGB+W"
@@ -35,17 +35,17 @@ enum NeoPixelMode {
 }
 
 /**
- * Functions to operate NeoPixel strips.
+ * Functions to operate _3DPrinter strips.
  */
 //% weight=5 color=#2699BF icon="\uf110"
-namespace neopixel {
+namespace _3DPrinter {
     //% shim=sendBufferAsm
-    //% parts="3D Priner"
+    //% parts="3D Printer"
     function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
 
     /**
-     * A NeoPixel strip
+     * A _3DPrinter strip
      */
     export class Strip {
         buf: Buffer;
@@ -54,15 +54,15 @@ namespace neopixel {
         brightness: number;
         start: number; // start offset in LED strip
         _length: number; // number of LEDs
-        _mode: NeoPixelMode;
+        _mode: _3DPrinterMode;
 
         /**
          * Shows all LEDs to a given color (range 0-255 for r, g, b). 
          * @param rgb RGB color of the LED
          */
-        //% blockId="neopixel_set_strip_color" block="%strip|show color %rgb=neopixel_colors" 
+        //% blockId="_3DPrinter_set_strip_color" block="%strip|show color %rgb=_3DPrinter_colors" 
         //% weight=85 blockGap=8
-        //% parts="_neopixel"
+        //% parts="__3DPrinter"
         showColor(rgb: number) {
             this.setAllRGB(rgb);
             this.show();
@@ -73,13 +73,13 @@ namespace neopixel {
          * @param startHue the start hue value for the rainbow, eg: 1
          * @param endHue the end hue value for the rainbow, eg: 360
          */
-        //% blockId="neopixel_set_strip_rainbow" block="%strip|show rainbow from %startHue|to %endHue" 
+        //% blockId="_3DPrinter_set_strip_rainbow" block="%strip|show rainbow from %startHue|to %endHue" 
         //% weight=85 blockGap=8
-        //% parts="neopixel"
+        //% parts="_3DPrinter"
         showRainbow(startHue: number = 1, endHue: number = 360) {
-            let start = neopixel.hsl(startHue, 100, 50);
-            let end = neopixel.hsl(endHue, 100, 50);
-            let colors = neopixel.interpolateHSL(start, end, this._length, HueInterpolationDirection.Clockwise);
+            let start = _3DPrinter.hsl(startHue, 100, 50);
+            let end = _3DPrinter.hsl(endHue, 100, 50);
+            let colors = _3DPrinter.interpolateHSL(start, end, this._length, HueInterpolationDirection.Clockwise);
             for (let i = 0; i < colors.length; i++) {
                 let hsl = colors[i];
                 let rgb = hsl.toRGB();
@@ -95,12 +95,12 @@ namespace neopixel {
          * @param high maximum value, eg: 255
          */
         //% weight=84
-        //% blockId=neopixel_show_bar_graph block="%strip|show bar graph of %value |up to %high" icon="\uf080" blockExternalInputs=true
-        //% parts="neopixel"
+        //% blockId=_3DPrinter_show_bar_graph block="%strip|show bar graph of %value |up to %high" icon="\uf080" blockExternalInputs=true
+        //% parts="_3DPrinter"
         showBarGraph(value: number, high: number): void {
             if (high <= 0) {
                 this.clear();
-                this.setPixelColor(0, NeoPixelColors.Yellow);
+                this.setPixelColor(0, _3DPrinterColors.Yellow);
                 this.show();
                 return;
             }
@@ -117,7 +117,7 @@ namespace neopixel {
                 for (let i = 0; i < n; ++i) {
                     if (i <= v) {
                         let b = i * 255 / n1;
-                        this.setPixelColor(i, neopixel.rgb(b, 0, 255 - b));
+                        this.setPixelColor(i, _3DPrinter.rgb(b, 0, 255 - b));
                     }
                     else this.setPixelColor(i, 0);
                 }
@@ -128,28 +128,28 @@ namespace neopixel {
         /**
          * Set LED to a given color (range 0-255 for r, g, b). 
          * You need to call ``show`` to make the changes visible.
-         * @param pixeloffset position of the NeoPixel in the strip
+         * @param pixeloffset position of the _3DPrinter in the strip
          * @param rgb RGB color of the LED
          */
-        //% blockId="neopixel_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb=neopixel_colors" 
+        //% blockId="_3DPrinter_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb=_3DPrinter_colors" 
         //% blockGap=8
         //% weight=80
-        //% parts="neopixel" advanced=true
+        //% parts="_3DPrinter" advanced=true
         setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset, rgb);
         }
 
         /**
-         * For NeoPixels with RGB+W LEDs, set the white LED brightness. This only works for RGB+W NeoPixels.
+         * For _3DPrinters with RGB+W LEDs, set the white LED brightness. This only works for RGB+W _3DPrinters.
          * @param pixeloffset position of the LED in the strip
          * @param white brightness of the white LED
          */
-        //% blockId="neopixel_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white" 
+        //% blockId="_3DPrinter_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white" 
         //% blockGap=8
         //% weight=80
-        //% parts="neopixel" advanced=true
+        //% parts="_3DPrinter" advanced=true
         setPixelWhiteLED(pixeloffset: number, white: number): void {
-            if (this._mode === NeoPixelMode.RGBW) {
+            if (this._mode === _3DPrinterMode.RGBW) {
                 this.setPixelW(pixeloffset, white);
             }
         }
@@ -157,9 +157,9 @@ namespace neopixel {
         /**
          * Send all the changes to the strip.
          */
-        //% blockId="neopixel_show" block="%strip|show" blockGap=8
+        //% blockId="_3DPrinter_show" block="%strip|show" blockGap=8
         //% weight=79
-        //% parts="neopixel"
+        //% parts="_3DPrinter"
         show() {
             sendBuffer(this.buf, this.pin);
         }
@@ -168,18 +168,18 @@ namespace neopixel {
          * Turn off all LEDs.
          * You need to call ``show`` to make the changes visible.
          */
-        //% blockId="neopixel_clear" block="%strip|clear"
+        //% blockId="_3DPrinter_clear" block="%strip|clear"
         //% weight=76
-        //% parts="neopixel"
+        //% parts="_3DPrinter"
         clear(): void {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const stride = this._mode === _3DPrinterMode.RGBW ? 4 : 3;
             this.buf.fill(0, this.start * stride, this._length * stride);
         }
 
         /**
          * Gets the number of pixels declared on the strip
          */
-        //% blockId="neopixel_length" block="%strip|length" blockGap=8
+        //% blockId="_3DPrinter_length" block="%strip|length" blockGap=8
         //% weight=60 advanced=true
         length() {
             return this._length;
@@ -189,9 +189,9 @@ namespace neopixel {
          * Set the brightness of the strip. This flag only applies to future operation.
          * @param brightness a measure of LED brightness in 0-255. eg: 255
          */
-        //% blockId="neopixel_set_brightness" block="%strip|set brightness %brightness" blockGap=8
+        //% blockId="_3DPrinter_set_brightness" block="%strip|set brightness %brightness" blockGap=8
         //% weight=59
-        //% parts="neopixel" advanced=true
+        //% parts="_3DPrinter" advanced=true
         setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
         }
@@ -199,11 +199,11 @@ namespace neopixel {
         /**
          * Apply brightness to current colors using a quadratic easing function.
          **/
-        //% blockId="neopixel_each_brightness" block="%strip|ease brightness" blockGap=8
+        //% blockId="_3DPrinter_each_brightness" block="%strip|ease brightness" blockGap=8
         //% weight=58
-        //% parts="neopixel" advanced=true
+        //% parts="_3DPrinter" advanced=true
         easeBrightness(): void {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const stride = this._mode === _3DPrinterMode.RGBW ? 4 : 3;
             const br = this.brightness;
             const buf = this.buf;
             const end = this.start + this._length;
@@ -228,8 +228,8 @@ namespace neopixel {
          * @param length number of LEDs in the range. eg: 4
          */
         //% weight=89
-        //% blockId="neopixel_range" block="%strip|range from %start|with %length|leds"
-        //% parts="neopixel"
+        //% blockId="_3DPrinter_range" block="%strip|range from %start|with %length|leds"
+        //% parts="_3DPrinter"
         range(start: number, length: number): Strip {
             let strip = new Strip();
             strip.buf = this.buf;
@@ -245,11 +245,11 @@ namespace neopixel {
          * You need to call ``show`` to make the changes visible.
          * @param offset number of pixels to shift forward, eg: 1
          */
-        //% blockId="neopixel_shift" block="%strip|shift pixels by %offset" blockGap=8
+        //% blockId="_3DPrinter_shift" block="%strip|shift pixels by %offset" blockGap=8
         //% weight=40
-        //% parts="neopixel"
+        //% parts="_3DPrinter"
         shift(offset: number = 1): void {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const stride = this._mode === _3DPrinterMode.RGBW ? 4 : 3;
             this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
         }
 
@@ -258,19 +258,19 @@ namespace neopixel {
          * You need to call ``show`` to make the changes visible.
          * @param offset number of pixels to rotate forward, eg: 1
          */
-        //% blockId="neopixel_rotate" block="%strip|rotate pixels by %offset" blockGap=8
+        //% blockId="_3DPrinter_rotate" block="%strip|rotate pixels by %offset" blockGap=8
         //% weight=39
-        //% parts="neopixel"
+        //% parts="_3DPrinter"
         rotate(offset: number = 1): void {
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const stride = this._mode === _3DPrinterMode.RGBW ? 4 : 3;
             this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
         }
 
         /**
-         * Set the pin where the neopixel is connected, defaults to P0.
+         * Set the pin where the _3DPrinter is connected, defaults to P0.
          */
         //% weight=10
-        //% parts="neopixel" advanced=true
+        //% parts="_3DPrinter" advanced=true
         setPin(pin: DigitalPin): void {
             this.pin = pin;
             pins.digitalWritePin(this.pin, 0);
@@ -278,7 +278,7 @@ namespace neopixel {
         }
 
         private setBufferRGB(offset: number, red: number, green: number, blue: number): void {
-            if (this._mode === NeoPixelMode.RGB_RGB) {
+            if (this._mode === _3DPrinterMode.RGB_RGB) {
                 this.buf[offset + 0] = red;
                 this.buf[offset + 1] = green;
             } else {
@@ -300,13 +300,13 @@ namespace neopixel {
                 blue = (blue * br) >> 8;
             }
             const end = this.start + this._length;
-            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            const stride = this._mode === _3DPrinterMode.RGBW ? 4 : 3;
             for (let i = this.start; i < end; ++i) {
                 this.setBufferRGB(i * stride, red, green, blue)
             }
         }
         private setAllW(white: number) {
-            if (this._mode !== NeoPixelMode.RGBW)
+            if (this._mode !== _3DPrinterMode.RGBW)
                 return;
 
             let br = this.brightness;
@@ -325,7 +325,7 @@ namespace neopixel {
                 || pixeloffset >= this._length)
                 return;
 
-            let stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            let stride = this._mode === _3DPrinterMode.RGBW ? 4 : 3;
             pixeloffset = (pixeloffset + this.start) * stride;
 
             let red = unpackR(rgb);
@@ -341,7 +341,7 @@ namespace neopixel {
             this.setBufferRGB(pixeloffset, red, green, blue)
         }
         private setPixelW(pixeloffset: number, white: number): void {
-            if (this._mode !== NeoPixelMode.RGBW)
+            if (this._mode !== _3DPrinterMode.RGBW)
                 return;
 
             if (pixeloffset < 0
@@ -360,17 +360,17 @@ namespace neopixel {
     }
 
     /**
-     * Create a new NeoPixel driver for `numleds` LEDs.
-     * @param pin the pin where the neopixel is connected.
+     * Create a new _3DPrinter driver for `numleds` LEDs.
+     * @param pin the pin where the _3DPrinter is connected.
      * @param numleds number of leds in the strip, eg: 24,30,60,64
      */
-    //% blockId="neopixel_create" block="NeoPixel at pin %pin|with %numleds|leds as %mode"
+    //% blockId="_3DPrinter_create" block="_3DPrinter at pin %pin|with %numleds|leds as %mode"
     //% weight=90 blockGap=8
-    //% parts="neopixel"
+    //% parts="_3DPrinter"
     //% trackArgs=0,2
-    export function create(pin: DigitalPin, numleds: number, mode: NeoPixelMode): Strip {
+    export function create(pin: DigitalPin, numleds: number, mode: _3DPrinterMode): Strip {
         let strip = new Strip();
-        let stride = mode === NeoPixelMode.RGBW ? 4 : 3;
+        let stride = mode === _3DPrinterMode.RGBW ? 4 : 3;
         strip.buf = pins.createBuffer(numleds * stride);
         strip.start = 0;
         strip._length = numleds;
@@ -387,7 +387,7 @@ namespace neopixel {
      * @param blue value of the blue channel between 0 and 255. eg: 255
      */
     //% weight=1
-    //% blockId="neopixel_rgb" block="red %red|green %green|blue %blue"
+    //% blockId="_3DPrinter_rgb" block="red %red|green %green|blue %blue"
     //% advanced=true
     export function rgb(red: number, green: number, blue: number): number {
         return packRGB(red, green, blue);
@@ -397,9 +397,9 @@ namespace neopixel {
      * Gets the RGB value of a known color
     */
     //% weight=2 blockGap=8
-    //% blockId="neopixel_colors" block="%color"
+    //% blockId="_3DPrinter_colors" block="%color"
     //% advanced=true
-    export function colors(color: NeoPixelColors): number {
+    export function colors(color: _3DPrinterColors): number {
         return color;
     }
 
@@ -438,7 +438,7 @@ namespace neopixel {
          * @param offset value to shift the hue channel by; hue is between 0 and 360. eg: 10
          */
         //% weight=1
-        //% blockId="neopixel_rotate_hue" block="shift %hsl| hue by %offset"
+        //% blockId="_3DPrinter_rotate_hue" block="shift %hsl| hue by %offset"
         //% advanced=true
         rotateHue(offset: number): void {
             this.h = (this.h + offset) % 360;
@@ -450,7 +450,7 @@ namespace neopixel {
          * [0, 100], and l between [0, 100], and output r, g, b ranges between [0,255]
         */
         //% weight=2 blockGap=8
-        //% blockId="neopixel_hsl_to_rgb" block="%hsl| to RGB"
+        //% blockId="_3DPrinter_hsl_to_rgb" block="%hsl| to RGB"
         //% advanced=true
         toRGB(): number {
             //reference: https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSL
@@ -493,7 +493,7 @@ namespace neopixel {
      * @param lum value of the luminosity channel between 0 and 100. eg: 50
      */
     //% weight=1
-    //% blockId="neopixel_hsl" block="hue %hue|sat %sat|lum %lum"
+    //% blockId="_3DPrinter_hsl" block="hue %hue|sat %sat|lum %lum"
     //% advanced=true
     export function hsl(hue: number, sat: number, lum: number): HSL {
         return new HSL(hue, sat, lum);
@@ -513,7 +513,7 @@ namespace neopixel {
      *  is 1, the color midway between the start and end color will be returned.
      * @param direction the direction around the color wheel the hue should be interpolated.
      */
-    //% parts="neopixel"
+    //% parts="_3DPrinter"
     //% advanced=true
     export function interpolateHSL(startColor: HSL, endColor: HSL, steps: number, direction: HueInterpolationDirection): HSL[] {
         if (steps <= 0)
