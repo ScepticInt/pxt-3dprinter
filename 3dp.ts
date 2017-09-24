@@ -40,7 +40,7 @@ enum _3DPrinterMode {
 //% weight=5 color=#2699BF icon="\uf110"
 namespace _3DPrinter {
     //% shim=sendBufferAsm
-    //% parts="3D Printer"
+    //% parts="_3DPrinter"
     function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
 
@@ -62,7 +62,7 @@ namespace _3DPrinter {
          */
         //% blockId="_3DPrinter_set_strip_color" block="%strip|show color %rgb=_3DPrinter_colors" 
         //% weight=85 blockGap=8
-        //% parts="__3DPrinter"
+        //% parts="_3DPrinter"
         showColor(rgb: number) {
             this.setAllRGB(rgb);
             this.show();
