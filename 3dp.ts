@@ -37,6 +37,10 @@ enum Print3DMode {
     //% block="RGB (RGB format)"
     RGB_RGB = 2
 }
+class Print3DConfig
+{
+    
+}
 
 /**
  * Functions to operate Print3D strips.
@@ -79,7 +83,7 @@ namespace Print3D {
          * Moves the nozzle in selected direction 
          * @param axis axis of movement
          */
-        //% blockId="Print3D_move_nozzle" block="%strip|Move nozzle %axis=Print3DDirection| %mm Distance" 
+        //% blockId="Print3D_move_nozzle" block="Move nozzle %axis=Print3DDirection| %mm Distance" 
         //% weight=85 blockGap=8
         //% parts="Print3D"
         moveNozzle(axis:Print3DDirection, mm:number)
@@ -381,19 +385,13 @@ namespace Print3D {
      * @param pin the pin where the Print3D is connected.
      * @param numleds number of leds in the strip, eg: 24,30,60,64
      */
-    //% blockId="Print3D_create" block="Print3D at pin %pin|with %numleds|leds as %mode"
+    //% blockId="Print3D_create" block="Printer with config %config "
     //% weight=90 blockGap=8
     //% parts="Print3D"
     //% trackArgs=0,2
-    export function create(pin: DigitalPin, numleds: number, mode: Print3DMode): Strip {
+    export function create(config: Print3DConfig): Strip {
         let strip = new Strip();
-        let stride = mode === Print3DMode.RGBW ? 4 : 3;
-        strip.buf = pins.createBuffer(numleds * stride);
-        strip.start = 0;
-        strip._length = numleds;
-        strip._mode = mode;
-        strip.setBrightness(255)
-        strip.setPin(pin)
+       
         return strip;
     }
 
